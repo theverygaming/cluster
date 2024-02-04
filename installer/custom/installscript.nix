@@ -218,6 +218,7 @@
 
                 openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGGEXP+YFeEihXZGZjtvbthkNayMOXwMLLtugMS7YAdS" ]; # TODO: ssh key from https://github.com/theverygaming.keys?
               };
+              nix.settings.trusted-users = [ "user" ];
 
               # Automatically log in at the virtual consoles.
               services.getty.autologinUser = "user";
