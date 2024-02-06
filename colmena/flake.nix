@@ -17,6 +17,16 @@
         ];
       };
 
+      clustercontrol = {
+        deployment = {
+          targetHost = "clustercontrol.local";
+          targetUser = "user";
+        };
+        imports = [
+          ./nodes/clustercontrol
+        ];
+      };
+
       fx6300 = {
         deployment = {
           targetHost = "fx6300.local";
