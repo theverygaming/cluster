@@ -1,0 +1,51 @@
+apiVersion: v1
+data:
+  settings.py: |
+    TMP_PATH = '/tmp/digiskr/'                ## tmp directory to put wave files and etc.
+    LOG_PATH = '/tmp/digiskr_log/'
+    LOG_TO_FILE = False
+    LOG_BACKUP_COUNT = 30
+    LOG_SPOTS = False                         ## log spots to log/spots/{wsprnet|pskreport}/{station}, split by date
+
+    WSJTX = {
+        'decoding_depth_global': 3,           ## global settings
+        'decoding_depth_modes': {             ## mode-specific setting: FT8/JT65/JT9/FT4
+            'FT8': 3
+        },
+        'interval': {
+            'FST4W': 1800                     ## available intervals: [120, 300, 900, 1800]
+        }
+    }
+
+    DECODER_QUEUE = {
+        'maxsize': 10,
+        'workers': 3
+    }
+
+    _callsign = "DATA EXPUNGED"
+
+    STATIONS = {
+        _callsign: {                          ## name of kiwisdr station
+            'server_host': 'DATA EXPUNGED',   ## url of your kiwisdr station
+            'server_port': 8073,              ## port of kiwi
+            'password': '',                   ## password if needed
+            'tlimit_password': '',            ## password to bypass time limited, if needed
+            'callsign': _callsign,            ## your callsign
+            'grid': 'DATA EXPUNGED',          ## your grid/locator, if none set will use the kiwisdr's setting
+        },
+    }
+
+    SCHEDULES = {
+        '18:00-08:00': {_callsign: ['2190!|630!', '20', '40', '160|80|17|15|12|10', '60', '30']},
+        #'18:00-08:00': {_callsign: ['36250`|2190`|630`', '20', '40', '60']},
+        #'18:00-08:00': {_callsign: ['36250`|2190`|630`', '20', '40!', '60']},
+        '08:00-11:30': {_callsign: ['2190!|630!', '20', '40', '80|60|30|17|15|12', '10', '60']},
+        '11:30-18:00': {_callsign: ['2190!|630!', '20', '40', '80|60|30|17|15|12', '10', '17']},
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2023-11-26T22:06:50Z"
+  name: settings.py
+  namespace: digiskimmer
+  resourceVersion: "34135"
+  uid: b57e8eac-456d-4a33-88b8-a5844d42bed6

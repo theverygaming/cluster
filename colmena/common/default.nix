@@ -4,6 +4,7 @@
   imports =
     [
       ./avahi.nix
+      ./k3s.nix
       ./pkgs.nix
       ./slurm.nix
     ];
