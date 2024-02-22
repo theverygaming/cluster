@@ -7,6 +7,7 @@
       ./k3s.nix
       ./pkgs.nix
       ./slurm.nix
+      ./uptime.nix
     ];
 
   services.openssh = {
