@@ -27,17 +27,24 @@
     '';
   };
 
+  systemd.services.slurmd.requisite = [ "munged.service" ];
+
   services.munge = {
     enable = true;
-    password = "/var/run/keys/munge-key";
+    password = "/var/run/keys/munge";
   };
+  systemd.services.munged.requisite = [ "munge-key.service" ];
 
   users.users.munge.extraGroups = [ "keys" ];
 
-  deployment.keys.munge-key = {
+  deployment.keys.munge = {
     keyCommand = [ "cat" "../secrets/slurm.key" ];
     user = "munge";
     group = "munge";
     permissions = "0400";
   };
+
+  # TODO: we can fix nodes being DOWN after reboot. For example this script could be run after reboot
+  # sudo scontrol -dd show node $HOSTNAME | grep "Node unexpectedly rebooted" && sudo scontrol update NodeName=$HOSTNAME State=RESUME
+  # https://forums.raspberrypi.com/viewtopic.php?t=252185
 }

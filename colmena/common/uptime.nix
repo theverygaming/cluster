@@ -7,33 +7,28 @@
     group = "uptime-curl";
     extraGroups = [ "keys" ];
   };
-  users.groups.uptime-curl = {};
+  users.groups.uptime-curl = { };
 
   systemd.services.uptime-curl = {
     enable = true;
     description = "Periodically send a GET request";
+    wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
-    requires = [ "uptime-url-key.service" ];
+    requisite = [ "uptime-url-key.service" ];
     serviceConfig = {
-      Type = "oneshot";
+      Type = "simple";
       User = "uptime-curl";
     };
     path = [
       pkgs.curl
     ];
     script = ''
-      curl "$(cat /var/run/keys/uptime-url)"
+      while true
+      do
+        curl "$(cat /var/run/keys/uptime-url)"
+        sleep 60
+      done
     '';
-  };
-
-  systemd.timers.uptime-curl = {
-    enable = true;
-    wantedBy = [ "timers.target" ];
-    partOf = [ "uptime-curl.service" ];
-    timerConfig = {
-      OnCalendar = [ "*:0/30" ];
-      Persistent = true;
-    };
   };
 
   deployment.keys.uptime-url = {

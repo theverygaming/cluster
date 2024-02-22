@@ -11,10 +11,12 @@
     disableAgent = true;
   }) // {
     enable = true;
-    tokenFile = "/var/run/keys/k3s-token";
+    tokenFile = "/var/run/keys/k3s";
   };
 
-  deployment.keys.k3s-token = {
+  systemd.services.k3s.requisite = [ "k3s-key.service" ];
+
+  deployment.keys.k3s = {
     keyCommand = [ "cat" "../secrets/k3s.key" ];
     user = "root";
     group = "root";
