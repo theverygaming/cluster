@@ -1,20 +1,16 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    netboot.url = "path:netboot_base";
   };
-  outputs = { nixpkgs, ... }: {
+  outputs = { nixpkgs, netboot, ... }: {
     colmena = {
       meta = {
         nixpkgs = import nixpkgs {
           system = "x86_64-linux";
           overlays = [ ];
         };
-      };
-
-      defaults = {
-        imports = [
-          ./common
-        ];
+        specialArgs = { inherit netboot; };
       };
 
       clustercontrol = {
@@ -24,26 +20,7 @@
         };
         imports = [
           ./nodes/clustercontrol
-        ];
-      };
-
-      fx6300 = {
-        deployment = {
-          targetHost = "fx6300.local";
-          targetUser = "user";
-        };
-        imports = [
-          ./nodes/fx6300
-        ];
-      };
-
-      optiplex755 = {
-        deployment = {
-          targetHost = "optiplex755.local";
-          targetUser = "user";
-        };
-        imports = [
-          ./nodes/optiplex755
+          ./common
         ];
       };
     };

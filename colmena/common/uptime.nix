@@ -14,7 +14,7 @@
     description = "Periodically send a GET request";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
-    requisite = [ "uptime-url-key.service" ];
+    #requisite = [ "uptime-url-key.service" ];
     serviceConfig = {
       Type = "simple";
       User = "uptime-curl";
@@ -25,16 +25,16 @@
     script = ''
       while true
       do
-        curl "$(cat /var/run/keys/uptime-url)"
+        #curl "$(cat /var/run/keys/uptime-url)"
         sleep 60
       done
     '';
   };
 
-  deployment.keys.uptime-url = {
-    keyCommand = [ "cat" "../secrets/uptime/${config.networking.hostName}" ];
-    user = "uptime-curl";
-    group = "uptime-curl";
-    permissions = "0400";
-  };
+  #deployment.keys.uptime-url = {
+  #  keyCommand = [ "cat" "../secrets/uptime/${config.networking.hostName}" ];
+  #  user = "uptime-curl";
+  #  group = "uptime-curl";
+  #  permissions = "0400";
+  #};
 }

@@ -4,15 +4,14 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ ];
-
   boot.initrd.availableKernelModules = [ "ata_piix" "mptspi" "floppy" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/de9edcf0-11b2-4c9c-abd0-9347a3a8200c";
+    {
+      device = "/dev/disk/by-uuid/de9edcf0-11b2-4c9c-abd0-9347a3a8200c";
       fsType = "ext4";
     };
 

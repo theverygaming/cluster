@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./netboot.nix
     ];
 
   boot.loader.grub.enable = true;

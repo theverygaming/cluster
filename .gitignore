@@ -1,2 +1,5 @@
+*.img
+
 /installer/result
+/rpi_installer/result
 /secrets/

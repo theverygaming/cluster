@@ -14,14 +14,13 @@
     controlAddr = "clustercontrol.local";
     nodeName = [
       "clustercontrol NodeAddr=clustercontrol.local CPUs=1 State=UNKNOWN"
-      "fx6300 NodeAddr=fx6300.local CPUs=6 CoresPerSocket=6 State=UNKNOWN"
-      "optiplex755 NodeAddr=optiplex755.local CPUs=4 CoresperSocket=4 State=UNKNOWN"
     ];
     partitionName = [
-      "x86 Nodes=clustercontrol,fx6300,optiplex755 Default=YES MaxTime=1-0:0:0 State=UP"
+      "all Nodes=ALL Default=YES MaxTime=1-0:0:0 State=UP"
     ];
     # max log level: debug5
     extraConfig = ''
+      SelectType=select/cons_tres
       SlurmctldDebug=info
       SlurmdDebug=info
     '';
@@ -31,18 +30,18 @@
 
   services.munge = {
     enable = true;
-    password = "/var/run/keys/munge";
+    password = "/tmp/mungekey";
   };
-  systemd.services.munged.requisite = [ "munge-key.service" ];
+  #systemd.services.munged.requisite = [ "munge-key.service" ];
 
   users.users.munge.extraGroups = [ "keys" ];
 
-  deployment.keys.munge = {
-    keyCommand = [ "cat" "../secrets/slurm.key" ];
-    user = "munge";
-    group = "munge";
-    permissions = "0400";
-  };
+  #deployment.keys.munge = {
+  #  keyCommand = [ "cat" "../secrets/slurm.key" ];
+  #  user = "munge";
+  #  group = "munge";
+  #  permissions = "0400";
+  #};
 
   # TODO: we can fix nodes being DOWN after reboot. For example this script could be run after reboot
   # sudo scontrol -dd show node $HOSTNAME | grep "Node unexpectedly rebooted" && sudo scontrol update NodeName=$HOSTNAME State=RESUME
