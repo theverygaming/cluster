@@ -2,37 +2,27 @@
 let
   extraModules = [
     ../../common
+    ../generic-perlless-system
   ];
 
-  netX86 = netboot.netbootSystem {
+  netX86 = netboot.netboot {
     targetSystem = "x86_64-linux";
     hostSystem = pkgs.stdenv.hostPlatform.system;
-    inherit extraModules;
+    netbootUrlbase = "http://192.168.2.192:8081/x86_64-linux";
+    rootDiskSize = "2000M";
+    extraModules = extraModules ++ [
+      ../generic-x86-64
+    ];
   };
-  netAarch64 = netboot.netbootSystem {
+  /*netAarch64 = netboot.netboot {
     targetSystem = "aarch64-linux";
     hostSystem = pkgs.stdenv.hostPlatform.system;
+    netbootUrlbase = "http://192.168.2.192:8081/aarch64-linux";
+    rootDiskSize = "100M";
     inherit extraModules;
-  };
+  };*/
 in
 {
-
-  fileSystems."/export/nix-store-x86_64-linux" = {
-    device = "${netX86.nfsroot}";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/export/nix-store-aarch64-linux" = {
-    device = "${netAarch64.nfsroot}";
-    options = [ "bind" ];
-  };
-
-  services.nfs.server.enable = true;
-  services.nfs.server.exports = ''
-    /export/nix-store-x86_64-linux (ro,insecure)
-    /export/nix-store-aarch64-linux (ro,insecure)
-  '';
-
   services.caddy = {
     enable = true;
     virtualHosts.":8081".extraConfig = ''
@@ -47,9 +37,7 @@ in
             <body>
               <ul>
                 <li><a href="/x86_64-linux">x86_64-linux files</a></li>
-                <li><a href="/x86_64-linux-ipxe">x86_64-linux ipxe</a></li>
                 <li><a href="/aarch64-linux">aarch64-linux files</a></li>
-                <li><a href="/aarch64-linux-ipxe">aarch64-linux ipxe</a></li>
               </ul> 
             </body>
           </html>
@@ -61,20 +49,10 @@ in
         root * ${netX86.webroot}
       }
 
-      handle_path /x86_64-linux-ipxe* {
-        file_server browse
-        root * ${netX86.ipxe}
-      }
-
-      handle_path /aarch64-linux* {
-        file_server browse
-        root * ${netAarch64.webroot}
-      }
-
-      handle_path /aarch64-linux-ipxe* {
-        file_server browse
-        root * ${netAarch64.ipxe}
-      }
+      #handle_path /aarch64-linux* {
+      #  file_server browse
+      #  root * ''${netAarch64.webroot}
+      #}
     '';
   };
   networking.firewall.allowedTCPPorts = [ 8081 ];

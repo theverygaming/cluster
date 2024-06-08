@@ -6,9 +6,6 @@
     settings.PasswordAuthentication = false;
   };
 
-  # Networking
-  networking.networkmanager.enable = true;
-
   # passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
@@ -17,12 +14,11 @@
     isNormalUser = true;
     description = "user";
     extraGroups = [ "wheel" "plugdev" "dialout" "docker" ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager");
-
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGGEXP+YFeEihXZGZjtvbthkNayMOXwMLLtugMS7YAdS" ]; # TODO: ssh key from https://github.com/theverygaming.keys?
   };
-  nix.settings.trusted-users = [ "user" ];
+  nix.settings.trusted-users = lib.mkIf (config.nix.enable) [ "user" ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = lib.mkIf (config.nix.enable) [ "nix-command" "flakes" ];
 
   # Automatically log in at the virtual consoles.
   services.getty.autologinUser = "user";
@@ -33,11 +29,11 @@
   xdg.mime.enable = false;
   xdg.sounds.enable = false;
   documentation.man.enable = false;
-  nix.settings.auto-optimise-store = true;
-  nix.gc = {
+  nix.settings.auto-optimise-store = lib.mkIf (config.nix.enable) true;
+  nix.gc = lib.mkIf (config.nix.enable) {
     automatic = true;
     dates = "daily";
-    options = "--delete-older-than 2d";
+    options = "--delete-older-than 1d";
   };
 
   # no need for logs on disk
@@ -54,5 +50,5 @@
     options = [ "defaults" "size=1G" "mode=777" ];
   };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

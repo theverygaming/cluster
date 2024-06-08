@@ -1,7 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    netboot.url = "path:netboot_base";
+    netboot = {
+      url = "github:theverygaming/nixos-netboot-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { nixpkgs, netboot, ... }: {
     colmena = {

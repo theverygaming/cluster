@@ -7,8 +7,8 @@
       ./avahi.nix
       ./base.nix
       ./k3s.nix
-      ./pkgs.nix
-      ./slurm.nix
+      #./slurm.nix
+      ./tinysystem.nix
       ./uptime.nix
     ];
 }

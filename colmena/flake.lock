@@ -2,41 +2,31 @@
   "nodes": {
     "netboot": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-YceoypmSBKbYkF8id35YOIoUTOTSiaa7do+R5UUC+PE=",
-        "path": "netboot_base",
-        "type": "path"
+        "lastModified": 1717615379,
+        "narHash": "sha256-ydbPQNZAgmDtF4up6GA/Nc2arpQB6dNFD84ac8Ao/bI=",
+        "owner": "theverygaming",
+        "repo": "nixos-netboot-flake",
+        "rev": "7e6d1284aa39f5d580fec569d44e27463b4c9d02",
+        "type": "github"
       },
       "original": {
-        "path": "netboot_base",
-        "type": "path"
+        "owner": "theverygaming",
+        "repo": "nixos-netboot-flake",
+        "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1715266358,
-        "narHash": "sha256-doPgfj+7FFe9rfzWo1siAV2mVCasW+Bh8I1cToAXEE4=",
+        "lastModified": 1717196966,
+        "narHash": "sha256-yZKhxVIKd2lsbOqYd5iDoUIwsRZFqE87smE2Vzf6Ck0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f1010e0469db743d14519a1efd37e23f8513d714",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-unstable",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1715266358,
-        "narHash": "sha256-doPgfj+7FFe9rfzWo1siAV2mVCasW+Bh8I1cToAXEE4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f1010e0469db743d14519a1efd37e23f8513d714",
+        "rev": "57610d2f8f0937f39dbd72251e9614b1561942d8",
         "type": "github"
       },
       "original": {
@@ -49,7 +39,7 @@
     "root": {
       "inputs": {
         "netboot": "netboot",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

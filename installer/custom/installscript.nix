@@ -236,7 +236,7 @@
                 options = "--delete-older-than 2d";
               };
 
-              system.stateVersion = "23.11";
+              system.stateVersion = "24.05";
             }
             EOF
 
