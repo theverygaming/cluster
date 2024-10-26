@@ -12,11 +12,11 @@
   fileSystems."/" = lib.mkImageMediaOverride
     {
       fsType = "tmpfs";
-      options = [ "mode=0755" "size=2G" ];
+      options = [ "mode=0755" "size=32G" ]; # we do need a big tmpfs as root, container images gotta go somewhere
     };
   fileSystems."/nix/.rw-store" = lib.mkImageMediaOverride {
     fsType = "tmpfs";
-    options = [ "mode=0755" "size=2G" ];
+    options = [ "mode=0755" "size=8G" ];
     neededForBoot = true;
   };
   fileSystems."/nix/.ro-store" = lib.mkImageMediaOverride

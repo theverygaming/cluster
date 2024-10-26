@@ -55,5 +55,12 @@
     pkgs.htop
   ];
 
+  # memory compression meow!
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    algorithm = "zstd";
+  };
+
   system.stateVersion = "24.05";
 }
