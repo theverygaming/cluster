@@ -12,6 +12,13 @@
   # sudo tune2fs /dev/sdXX -U "3fc36f0f-f789-48b2-929c-676a1214643b"
   # sudo mount /dev/sdXX /mnt
   # sudo mkdir /mnt/storage
+
+  # now create...
+  # k3s.env and k3s.secret -> described in k3s.nix
+  # chown root:root k3s.*
+  # chmod 644 k3s.env
+  # chmod 600 k3s.secret
+
   fileSystems = { } // (if (config.networking.hostName != "clustercontrol") then {
     "/mnt/persistent" =
       {

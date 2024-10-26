@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717615379,
-        "narHash": "sha256-ydbPQNZAgmDtF4up6GA/Nc2arpQB6dNFD84ac8Ao/bI=",
+        "lastModified": 1729945212,
+        "narHash": "sha256-M7Cvtgxk9x3LyX0QxHPQDF7wF3rYtXsPRpiMtnql1dk=",
         "owner": "theverygaming",
         "repo": "nixos-netboot-flake",
-        "rev": "7e6d1284aa39f5d580fec569d44e27463b4c9d02",
+        "rev": "5b2971a606508b8158f67b965dc45438aa07f357",
         "type": "github"
       },
       "original": {

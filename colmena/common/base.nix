@@ -50,5 +50,10 @@
     options = [ "defaults" "size=1G" "mode=777" ];
   };
 
+  # some convenience packages
+  environment.systemPackages = [
+    pkgs.htop
+  ];
+
   system.stateVersion = "24.05";
 }

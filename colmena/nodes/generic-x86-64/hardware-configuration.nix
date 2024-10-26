@@ -1,8 +1,30 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot.initrd.availableKernelModules = [ "ahci" "ohci_pci" "ehci_pci" "pata_atiixp" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    # to be sorted lmao
+    "ahci"
+    "ohci_pci"
+    "ehci_pci"
+    "pata_atiixp"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    # required for NFS boot
+    "nfs"
+    "nfsv4"
+    "overlay"
+    # network cards
+    "bnx2"
+    "e1000"
+    "e1000e"
+    "r8169"
+    "alx"
+  ];
+  # for NFS boot
+  boot.initrd.supportedFilesystems = [ "nfs" "nfsv4" "overlay" ];
   boot.initrd.kernelModules = [ ];
+
   boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
   boot.extraModulePackages = [ ];
 

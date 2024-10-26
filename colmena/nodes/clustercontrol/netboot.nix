@@ -2,14 +2,13 @@
 let
   extraModules = [
     ../../common
-    ../generic-perlless-system
   ];
 
   netX86 = netboot.netboot {
     targetSystem = "x86_64-linux";
     hostSystem = pkgs.stdenv.hostPlatform.system;
     netbootUrlbase = "http://192.168.2.192:8081/x86_64-linux";
-    rootDiskSize = "2000M";
+    useSquashfs = false;
     extraModules = extraModules ++ [
       ../generic-x86-64
     ];
@@ -18,11 +17,20 @@ let
     targetSystem = "aarch64-linux";
     hostSystem = pkgs.stdenv.hostPlatform.system;
     netbootUrlbase = "http://192.168.2.192:8081/aarch64-linux";
-    rootDiskSize = "100M";
+    useSquashfs = false;
     inherit extraModules;
   };*/
 in
 {
+  fileSystems."/export/nix-store" = {
+    device = "/nix/store";
+    options = [ "bind" ];
+  };
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /export/nix-store (ro,insecure)
+  '';
+
   services.caddy = {
     enable = true;
     virtualHosts.":8081".extraConfig = ''
