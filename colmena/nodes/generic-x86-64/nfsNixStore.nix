@@ -43,4 +43,6 @@
     };
   boot.initrd.network.enable = true;
   boot.initrd.network.flushBeforeStage2 = false; # required for NFS /nix/store in initrd
+
+  networking.dhcpcd.persistent = true; # makes dhcpcd not take forever to shut down
 }

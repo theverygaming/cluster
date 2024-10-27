@@ -15,11 +15,12 @@
     "nfsv4"
     "overlay"
     # network cards
-    "bnx2"
-    "e1000"
-    "e1000e"
-    "r8169"
-    "alx"
+    "e1000" # common
+    "e1000e" # common
+    "r8169" # common
+    "bnx2" # HP Proliant DL380 G7 iirc
+    "alx" # i forgor
+    "tg3" # for the BCM57781 in my HP t610
   ];
   # for NFS boot
   boot.initrd.supportedFilesystems = [ "nfs" "nfsv4" "overlay" ];

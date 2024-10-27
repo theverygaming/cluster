@@ -22,11 +22,9 @@ in
 
   environment.systemPackages = [
     pkgs.k3s
-  ];
 
-  # for longhorn (deployed on k3s)
-  services.openiscsi = {
-    enable = isNotControlPlane;
-    name = "iqn.linux-iscsi." + config.networking.hostName;
-  };
+    # for longhorn (deployed on k3s)
+    pkgs.nfs-utils
+    pkgs.openiscsi
+  ];
 }

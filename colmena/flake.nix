@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/d5b23b1e24a9860f65973c5757e10af291a7b691";  # FIXME: pinned (to nixpkgs ~Jul 22nd 2024) because perlless breaks due to this PR: https://github.com/NixOS/nixpkgs/pull/328926
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     netboot = {
       url = "github:theverygaming/nixos-netboot-flake";
       inputs.nixpkgs.follows = "nixpkgs";
