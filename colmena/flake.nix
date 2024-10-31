@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # 2024-10-31: switching from 24.05 to unstable because significant improvements were made to k3s in unstable
     netboot = {
       url = "github:theverygaming/nixos-netboot-flake";
       inputs.nixpkgs.follows = "nixpkgs";

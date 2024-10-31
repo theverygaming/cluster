@@ -53,6 +53,7 @@
   # some convenience packages
   environment.systemPackages = [
     pkgs.htop
+    pkgs.btop
   ];
 
   # memory compression meow!

@@ -12,12 +12,26 @@ in
     environmentFile = "/mnt/persistent/k3s.env"; # specified in the env file: K3S_NODE_NAME
     tokenFile = "/mnt/persistent/k3s.secret";
   } else {
+    extraFlags = [
+      # things you can disable:
+      # - coredns
+      # - traefik
+      # - local-storage
+      # - metrics-server
+      # - servicelb
+      "--disable=traefik"
+      "--disable=local-storage"
+      "--disable=servicelb"
+    ];
     role = "server";
-    disableAgent = true;
-    tokenFile = "/root/keys/k3s";
+    clusterInit = true; # this node initializes embedded etcd
   }) // {
     enable = true;
-    #gracefulNodeShutdown.enable = true;  # not available in nixpkgs d5b23b1e24a9860f65973c5757e10af291a7b691 (Jul 22nd 2024)
+    gracefulNodeShutdown = {
+      enable = true;
+      shutdownGracePeriodCriticalPods = "30s";
+      shutdownGracePeriod = "3m";
+    };
   };
 
   environment.systemPackages = [
