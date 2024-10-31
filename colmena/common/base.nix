@@ -59,7 +59,7 @@
   # memory compression meow!
   zramSwap = {
     enable = true;
-    memoryPercent = 80;
+    memoryPercent = 90;
     algorithm = "zstd";
   };
 
