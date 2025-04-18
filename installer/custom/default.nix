@@ -1,18 +1,26 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./installscript.nix
+  environment.systemPackages = with pkgs; [
+    nano
+    cpio
+    kexec-tools
   ];
 
-  environment.systemPackages = [ pkgs.nano ];
   environment.variables = {
     EDITOR = "nano";
   };
 
-  services.getty.helpLine = ''
-    |----------------------------------------------------------------------|
-    | You can now use the node-install script to install NixOS on the node |
-    |----------------------------------------------------------------------|
-  '';
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+  };
+
+  # passwordless sudo
+  security.sudo.wheelNeedsPassword = false;
+
+  # users
+  users.users.nixos = {
+    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGGEXP+YFeEihXZGZjtvbthkNayMOXwMLLtugMS7YAdS" ];
+  };
 }
